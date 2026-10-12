@@ -1,5 +1,6 @@
-package Exercicio2;
+package br.edu.insper.aps2.Exercicio2.pedido;
 
+import br.edu.insper.aps2.Exercicio2.produto.Produto;
 public class ItemPedido {
     private Produto produto;
     private int quantidade;

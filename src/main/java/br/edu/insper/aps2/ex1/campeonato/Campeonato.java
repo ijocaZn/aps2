@@ -1,5 +1,7 @@
-package Exercicio1;
+package br.edu.insper.aps2.ex1.campeonato;
 
+import br.edu.insper.aps2.ex1.partida.Partida;
+import br.edu.insper.aps2.ex1.time.Time;
 
 import java.util.ArrayList;
 import java.util.HashMap;

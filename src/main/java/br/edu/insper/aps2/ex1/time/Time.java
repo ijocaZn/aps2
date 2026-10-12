@@ -1,4 +1,6 @@
-package Exercicio1;
+package br.edu.insper.aps2.ex1.time;
+
+import br.edu.insper.aps2.ex1.jogador.Jogador;
 
 import java.util.ArrayList;
 

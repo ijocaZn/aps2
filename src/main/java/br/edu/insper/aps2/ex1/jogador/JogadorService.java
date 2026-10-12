@@ -1,6 +1,6 @@
-package br.edu.insper.aps2.ex1;
+package br.edu.insper.aps2.ex1.jogador;
 
-import Exercicio1.Jogador;
+import br.edu.insper.aps2.ex1.campeonato.CampeonatoService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

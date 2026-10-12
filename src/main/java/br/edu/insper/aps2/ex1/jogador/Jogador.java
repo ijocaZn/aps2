@@ -1,4 +1,4 @@
-package Exercicio1;
+package br.edu.insper.aps2.ex1.jogador;
 
 public class Jogador {
 
@@ -6,7 +6,6 @@ public class Jogador {
         private String nome;
         private int numero;
         private String posicao;
-        private Time time;
         private int idade;
 
     public Jogador(String nome, int numero, String posicao,int idade) {
@@ -22,7 +21,7 @@ public class Jogador {
         public String getNome() {return nome;}
         public void setNome(String nome) {this.nome = nome;}
         public int getNumero() {return numero;}
-        public void setNumero(int ano) {this.numero = numero;}
+        public void setNumero(int numero) {this.numero = numero;}
         public String getPosicao() {return posicao;}
         public void setPosicao(String posicao) {this.posicao = posicao;}
         public int getIdade() {return idade;}

@@ -1,10 +1,9 @@
-package br.edu.insper.aps2.ex1;
+package br.edu.insper.aps2.ex1.campeonato;
 
-import Exercicio1.Campeonato;
-import Exercicio1.Cartao;
-import Exercicio1.Jogador;
-import Exercicio1.Partida;
-import Exercicio1.Time;
+import br.edu.insper.aps2.ex1.cartao.Cartao;
+import br.edu.insper.aps2.ex1.jogador.Jogador;
+import br.edu.insper.aps2.ex1.partida.Partida;
+import br.edu.insper.aps2.ex1.time.Time;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;

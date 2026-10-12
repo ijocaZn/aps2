@@ -1,6 +1,5 @@
-package br.edu.insper.aps2.ex1;
+package br.edu.insper.aps2.ex1.campeonato;
 
-import Exercicio1.Campeonato;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

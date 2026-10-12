@@ -1,5 +1,8 @@
-package Exercicio1;
+package br.edu.insper.aps2.ex1.partida;
 
+import br.edu.insper.aps2.ex1.campeonato.Campeonato;
+import br.edu.insper.aps2.ex1.cartao.Cartao;
+import br.edu.insper.aps2.ex1.time.Time;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
@@ -18,8 +21,6 @@ public class Partida {
 
         public Partida() {
             this.data = LocalDate.now();
-            this.golMandante = golMandante;
-            this.golVisitante = golVisitante;
             this.cartoes = new ArrayList<>();
         }
 

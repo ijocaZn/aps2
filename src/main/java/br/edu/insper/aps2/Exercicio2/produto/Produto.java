@@ -1,5 +1,6 @@
-package Exercicio2;
+package br.edu.insper.aps2.Exercicio2.produto;
 
+import br.edu.insper.aps2.Exercicio2.categoria.Categoria;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Produto {

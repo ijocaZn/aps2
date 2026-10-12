@@ -1,7 +1,12 @@
-package Exercicio2;
+package br.edu.insper.aps2.Exercicio2.loja;
+
+import br.edu.insper.aps2.Exercicio2.categoria.Categoria;
+import br.edu.insper.aps2.Exercicio2.cliente.Cliente;
+import br.edu.insper.aps2.Exercicio2.pedido.Pedido;
+import br.edu.insper.aps2.Exercicio2.produto.Produto;
 
 public class Main {
-    static void main() {
+    public static void main(String[] args) {
         Loja loja = new Loja("Tech & Games Store");
 
         Categoria catEletronicos = new Categoria(1, "Eletrônicos");

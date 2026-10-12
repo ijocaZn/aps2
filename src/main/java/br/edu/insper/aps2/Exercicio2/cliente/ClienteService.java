@@ -1,5 +1,7 @@
-package Exercicio2;
+package br.edu.insper.aps2.Exercicio2.cliente;
 
+import br.edu.insper.aps2.Exercicio2.loja.LojaService;
+import br.edu.insper.aps2.Exercicio2.pedido.Pedido;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

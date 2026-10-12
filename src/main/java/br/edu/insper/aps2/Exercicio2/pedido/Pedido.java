@@ -1,5 +1,7 @@
-package Exercicio2;
+package br.edu.insper.aps2.Exercicio2.pedido;
 
+import br.edu.insper.aps2.Exercicio2.cliente.Cliente;
+import br.edu.insper.aps2.Exercicio2.produto.Produto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
-package Exercicio2;
+package br.edu.insper.aps2.Exercicio2.categoria;
 
+import br.edu.insper.aps2.Exercicio2.loja.LojaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

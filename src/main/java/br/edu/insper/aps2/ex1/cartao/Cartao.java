@@ -1,4 +1,7 @@
-package Exercicio1;
+package br.edu.insper.aps2.ex1.cartao;
+
+import br.edu.insper.aps2.ex1.jogador.Jogador;
+import br.edu.insper.aps2.ex1.partida.Partida;
 
 public class Cartao {
     private Jogador jogador;
@@ -17,12 +20,12 @@ public class Cartao {
                     "O cartão deve ser AMARELO ou VERMELHO"
             );
         }
-
-        public Jogador getJogador() { return jogador; }
-        public int getMinuto() { return minuto; }
-        public String getTipo() { return tipo; }
-        public Partida getPartida() { return partida; }
-        public void setPartida(Partida partida) { this.partida = partida; }
-
     }
+
+    public Jogador getJogador() { return jogador; }
+    public int getMinuto() { return minuto; }
+    public String getTipo() { return tipo; }
+    public Partida getPartida() { return partida; }
+    public void setPartida(Partida partida) { this.partida = partida; }
+
 }

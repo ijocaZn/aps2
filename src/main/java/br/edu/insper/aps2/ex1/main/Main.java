@@ -1,7 +1,13 @@
-package Exercicio1;
+package br.edu.insper.aps2.ex1.main;
+
+import br.edu.insper.aps2.ex1.campeonato.Campeonato;
+import br.edu.insper.aps2.ex1.cartao.Cartao;
+import br.edu.insper.aps2.ex1.jogador.Jogador;
+import br.edu.insper.aps2.ex1.partida.Partida;
+import br.edu.insper.aps2.ex1.time.Time;
 
 public class Main {
-    static void main(){
+    public static void main(String[] args){
         Campeonato brasileirao = new Campeonato("Brasileirão", 2026);
 
         Time corinthians = new Time("Corinthians", "São Paulo");

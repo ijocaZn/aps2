@@ -1,5 +1,6 @@
-package Exercicio2;
+package br.edu.insper.aps2.Exercicio2.categoria;
 
+import br.edu.insper.aps2.Exercicio2.produto.Produto;
 import java.util.ArrayList;
 
 public class Categoria {
