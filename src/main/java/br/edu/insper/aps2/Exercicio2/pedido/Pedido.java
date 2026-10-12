@@ -5,12 +5,23 @@ import br.edu.insper.aps2.Exercicio2.produto.Produto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
+@Entity
 public class Pedido {
+    @Id
     private int numero;
+    @ManyToOne
     private Cliente cliente;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private ArrayList<ItemPedido> itens;
     private String status;
+
+    protected Pedido() {}
 
     public Pedido(int numero, Cliente cliente) {
         this.numero = numero;
@@ -49,7 +60,9 @@ public class Pedido {
     }
 
     public void adicionarProduto(Produto produto, int quantidade) {
-        itens.add(new ItemPedido(produto, quantidade));
+        ItemPedido item = new ItemPedido(produto, quantidade);
+        item.setPedido(this);
+        itens.add(item);
     }
 
     public void removerProduto(Produto produto) {

@@ -2,12 +2,20 @@ package br.edu.insper.aps2.Exercicio2.produto;
 
 import br.edu.insper.aps2.Exercicio2.categoria.Categoria;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
+@Entity
 public class Produto {
+    @Id
     private int codigo;
     private String nome;
     private double preco;
+    @ManyToOne
     private Categoria categoria;
+
+    protected Produto() {}
 
     public Produto(int codigo, String nome, double preco, Categoria categoria) {
         this.codigo = codigo;

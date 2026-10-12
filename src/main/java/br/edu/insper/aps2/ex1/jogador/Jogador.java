@@ -1,12 +1,27 @@
 package br.edu.insper.aps2.ex1.jogador;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import br.edu.insper.aps2.ex1.time.Time;
+
+@Entity
 public class Jogador {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
         private String nome;
         private int numero;
         private String posicao;
+        @ManyToOne
+        private Time time;
         private int idade;
+
+        protected Jogador() {}
 
     public Jogador(String nome, int numero, String posicao,int idade) {
         this.nome = nome;
@@ -26,5 +41,8 @@ public class Jogador {
         public void setPosicao(String posicao) {this.posicao = posicao;}
         public int getIdade() {return idade;}
         public void setIdade(int idade) {this.idade = idade;}
+        @JsonIgnore
+        public Time getTime() { return time; }
+        public void setTime(Time time) { this.time = time; }
     
 }

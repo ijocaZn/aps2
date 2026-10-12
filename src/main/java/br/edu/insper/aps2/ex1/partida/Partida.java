@@ -7,16 +7,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
+@Entity
 public class Partida {
 
+        @Id
+        @GeneratedValue(strategy = GenerationType.UUID)
+        private String id;
         private LocalDate data;
+        @ManyToOne
         private Time timeMandante;
+        @ManyToOne
         private Time timeVisitante;
         private int golMandante;
         private int golVisitante;
         private boolean placarRegistrado;
+        @OneToMany(mappedBy = "partida", cascade = CascadeType.ALL)
         private ArrayList<Cartao> cartoes;
+        @ManyToOne
         private Campeonato campeonato;
 
         public Partida() {
@@ -53,6 +68,7 @@ public class Partida {
         public boolean isPlacarRegistrado() { return placarRegistrado; }
         public void registrarCartao(Cartao cartao){
             cartoes.add(cartao);
+            cartao.setPartida(this);
         }
         public Time buscarVencedor(){
             if (golMandante - golVisitante > 0){

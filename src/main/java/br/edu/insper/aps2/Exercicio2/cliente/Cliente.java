@@ -2,12 +2,21 @@ package br.edu.insper.aps2.Exercicio2.cliente;
 
 import br.edu.insper.aps2.Exercicio2.pedido.Pedido;
 import java.util.ArrayList;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
+@Entity
 public class Cliente {
     private String nome;
+    @Id
     private String cpf;
     private String email;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private ArrayList<Pedido> pedidos;
+
+    protected Cliente() {}
 
     public Cliente(String nome, String cpf, String email) {
         this.nome = nome;
@@ -42,6 +51,7 @@ public class Cliente {
 
     public void adicionarPedido(Pedido pedido) {
         pedidos.add(pedido);
+        pedido.setCliente(this);
     }
 
     public ArrayList<Pedido> listarPedidos() {

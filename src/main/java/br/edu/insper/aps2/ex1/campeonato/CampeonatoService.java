@@ -2,61 +2,64 @@ package br.edu.insper.aps2.ex1.campeonato;
 
 import br.edu.insper.aps2.ex1.cartao.Cartao;
 import br.edu.insper.aps2.ex1.jogador.Jogador;
+import br.edu.insper.aps2.ex1.jogador.JogadorRepository;
 import br.edu.insper.aps2.ex1.partida.Partida;
+import br.edu.insper.aps2.ex1.partida.PartidaRepository;
 import br.edu.insper.aps2.ex1.time.Time;
+import br.edu.insper.aps2.ex1.time.TimeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class CampeonatoService {
-    private final Map<String, Jogador> jogadores = new HashMap<>();
-    private final Map<String, Time> times = new HashMap<>();
-    private final Map<String, Partida> partidas = new HashMap<>();
-    private final Map<String, Campeonato> campeonatos = new HashMap<>();
+    private final JogadorRepository jogadorRepository;
+    private final TimeRepository timeRepository;
+    private final PartidaRepository partidaRepository;
+    private final CampeonatoRepository campeonatoRepository;
+
+    public CampeonatoService(JogadorRepository jogadorRepository, TimeRepository timeRepository,
+                             PartidaRepository partidaRepository, CampeonatoRepository campeonatoRepository) {
+        this.jogadorRepository = jogadorRepository;
+        this.timeRepository = timeRepository;
+        this.partidaRepository = partidaRepository;
+        this.campeonatoRepository = campeonatoRepository;
+    }
 
     public Jogador criarJogador(JogadorRequest request) {
         Jogador jogador = new Jogador(request.nome(), request.numero(), request.posicao(), request.idade());
-        jogador.setId(UUID.randomUUID().toString());
-        jogadores.put(jogador.getId(), jogador);
-        return jogador;
+        return jogadorRepository.save(jogador);
     }
 
-    public ArrayList<Jogador> listarJogadores() { return new ArrayList<>(jogadores.values()); }
-    public Jogador buscarJogador(String id) { return buscar(jogadores, id, "Jogador"); }
+    public ArrayList<Jogador> listarJogadores() { return new ArrayList<>(jogadorRepository.findAll()); }
+    public Jogador buscarJogador(String id) { return buscar(jogadorRepository.findById(id), "Jogador"); }
 
     public Time criarTime(TimeRequest request) {
         Time time = new Time(request.nome(), request.cidade());
-        String id = UUID.randomUUID().toString();
-        time.setId(id);
-        times.put(id, time);
-        return time;
+        return timeRepository.save(time);
     }
 
-    public ArrayList<Time> listarTimes() { return new ArrayList<>(times.values()); }
-    public Time buscarTime(String id) { return buscar(times, id, "Time"); }
+    public ArrayList<Time> listarTimes() { return new ArrayList<>(timeRepository.findAll()); }
+    public Time buscarTime(String id) { return buscar(timeRepository.findById(id), "Time"); }
 
     public Time adicionarJogador(String timeId, String jogadorId) {
         Time time = buscarTime(timeId);
         Jogador jogador = buscarJogador(jogadorId);
         time.adicionarJogador(jogador);
+        jogadorRepository.save(jogador);
         return time;
     }
 
     public Campeonato criarCampeonato(CampeonatoRequest request) {
         Campeonato campeonato = new Campeonato(request.nome(), request.ano());
-        campeonato.setId(UUID.randomUUID().toString());
-        campeonatos.put(campeonato.getId(), campeonato);
-        return campeonato;
+        return campeonatoRepository.save(campeonato);
     }
 
-    public Campeonato buscarCampeonato(String id) { return buscar(campeonatos, id, "Campeonato"); }
+    public Campeonato buscarCampeonato(String id) { return buscar(campeonatoRepository.findById(id), "Campeonato"); }
 
     public Partida criarPartida(PartidaRequest request) {
         Time mandante = buscarTime(request.idTimeMandante());
@@ -69,13 +72,13 @@ public class CampeonatoService {
         partida.setData(request.data() == null ? LocalDate.now() : request.data());
         partida.registrarTime(mandante, visitante);
         partida.setCampeonato(campeonato);
-        String id = UUID.randomUUID().toString();
-        partidas.put(id, partida);
+        partidaRepository.save(partida);
         campeonato.addPartida(partida);
+        campeonatoRepository.save(campeonato);
         return partida;
     }
 
-    public Partida buscarPartida(String id) { return buscar(partidas, id, "Partida"); }
+    public Partida buscarPartida(String id) { return buscar(partidaRepository.findById(id), "Partida"); }
 
     public Partida atualizarPlacar(String id, PlacarRequest request) {
         if (request.golMandante() < 0 || request.golVisitante() < 0) {
@@ -83,7 +86,7 @@ public class CampeonatoService {
         }
         Partida partida = buscarPartida(id);
         partida.registrarGol(request.golMandante(), request.golVisitante());
-        return partida;
+        return partidaRepository.save(partida);
     }
 
     public Partida registrarCartao(String id, CartaoRequest request) {
@@ -93,7 +96,7 @@ public class CampeonatoService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O minuto não pode ser negativo");
         }
         partida.registrarCartao(new Cartao(jogador, request.minuto(), request.tipo()));
-        return partida;
+        return partidaRepository.save(partida);
     }
 
     public ArrayList<ClassificationEntry> classificacao(String id) {
@@ -105,12 +108,8 @@ public class CampeonatoService {
         return response;
     }
 
-    private <T> T buscar(Map<String, T> mapa, String id, String nome) {
-        T value = mapa.get(id);
-        if (value == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, nome + " não encontrado");
-        }
-        return value;
+    private <T> T buscar(java.util.Optional<T> value, String nome) {
+        return value.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, nome + " não encontrado"));
     }
 
     public record JogadorRequest(String nome, int numero, String posicao, int idade) {}

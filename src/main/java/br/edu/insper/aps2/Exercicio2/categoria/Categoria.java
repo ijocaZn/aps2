@@ -2,11 +2,20 @@ package br.edu.insper.aps2.Exercicio2.categoria;
 
 import br.edu.insper.aps2.Exercicio2.produto.Produto;
 import java.util.ArrayList;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
+@Entity
 public class Categoria {
+    @Id
     private int codigo;
     private String nome;
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private ArrayList<Produto> produtos;
+
+    protected Categoria() {}
 
     public Categoria(int codigo, String nome) {
         this.codigo = codigo;
@@ -32,6 +41,7 @@ public class Categoria {
 
     public void adicionarProduto(Produto produto) {
         produtos.add(produto);
+        produto.setCategoria(this);
     }
 
     public ArrayList<Produto> listarProdutos() {

@@ -6,15 +6,28 @@ import br.edu.insper.aps2.ex1.time.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 
+@Entity
 public class Campeonato {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String nome;
     private int ano;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private ArrayList<Time> times;
+    @OneToMany(mappedBy = "campeonato", cascade = CascadeType.ALL)
     private ArrayList<Partida> partidas;
+
+    protected Campeonato() {}
 
     public Campeonato(String nome, int ano) {
         this.nome = nome;
