@@ -1,13 +1,17 @@
 # APS2 - APIs REST
 
 Aplicação Spring Boot com APIs REST para o campeonato de futebol e para uma loja virtual.
-Os dados ficam armazenados em memória e são perdidos quando a aplicação é encerrada.
+Os dados são persistidos em um banco de dados H2 utilizando Spring Data JPA e continuam
+disponíveis após a aplicação ser encerrada.
 
 ## Pré-requisitos
 
 - Java 25
 - Windows: use `mvnw.cmd`
 - Linux/macOS: use `./mvnw`
+
+Não é necessário instalar ou iniciar um banco de dados separadamente. O H2 é incluído
+como dependência da aplicação e o schema é atualizado automaticamente pelo Hibernate.
 
 ## Executar
 
@@ -23,6 +27,32 @@ Na raiz do projeto:
 
 A aplicação ficará disponível em `http://localhost:8080`.
 
+### Banco de dados H2
+
+Por padrão, o banco H2 é persistido em arquivo no caminho:
+
+```text
+data/aps2.mv.db
+```
+
+O diretório `data/` é criado automaticamente na primeira execução e está no `.gitignore`.
+Por isso, os dados locais não são enviados para o repositório.
+
+As configurações estão em
+[`src/main/resources/application.properties`](src/main/resources/application.properties):
+
+```properties
+spring.datasource.url=jdbc:h2:file:./data/aps2
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.hibernate.ddl-auto=update
+```
+
+Para apagar todos os dados e recriar o banco vazio, encerre a aplicação e remova
+apenas o arquivo `data/aps2.mv.db`. Na próxima execução, o Hibernate criará as tabelas
+novamente.
+
 Para executar os testes:
 
 ```bash
@@ -32,6 +62,9 @@ Para executar os testes:
 # Linux/macOS
 ./mvnw test
 ```
+
+Os testes inicializam o contexto do Spring e verificam a configuração da persistência
+JPA/H2.
 
 ## Exercício 1 - Campeonato
 
