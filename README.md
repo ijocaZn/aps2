@@ -46,8 +46,22 @@ spring.datasource.url=jdbc:h2:file:./data/aps2
 spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
 spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
 ```
+
+Neste projeto, o arquivo do banco será criado como `data/aps2.mv.db`, dentro da
+pasta `data` existente na raiz do projeto. O console web do H2 fica disponível em
+`http://localhost:8080/h2-console`.
+
+No console H2, use:
+
+- **JDBC URL:** `jdbc:h2:file:./data/aps2`
+- **User Name:** `sa`
+- **Password:** deixe em branco
 
 Para apagar todos os dados e recriar o banco vazio, encerre a aplicação e remova
 apenas o arquivo `data/aps2.mv.db`. Na próxima execução, o Hibernate criará as tabelas
